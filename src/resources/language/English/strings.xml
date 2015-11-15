@@ -1,0 +1,29 @@
+<!--
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<strings>
+    <string id="1000">System</string>
+    <string id="1001">Network</string>
+    <string id="1011">Enable SSH daemon</string>
+    <string id="1012">Disable password authentication</string>
+    <string id="1013">Wait for network before starting Kodi</string>
+    <string id="1014">- time (s)</string>
+    <string id="1021">Method (ipv4)</string>
+    <string id="1022">IP Address</string>
+    <string id="1023">Prefix Length</string>
+    <string id="1024">Gateway</string>
+    <string id="1025">DNS #1</string>
+    <string id="1026">DNS #2</string>
+</strings>

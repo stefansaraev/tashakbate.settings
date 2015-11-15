@@ -1,0 +1,9 @@
+# build dir
+build/
+
+# pyo files
+*.pyo
+
+# backup files
+*.orig
+
