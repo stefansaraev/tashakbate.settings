@@ -42,6 +42,7 @@ systemctl restart sshd.service
 [ "$NET_DNS2" = "0.0.0.0" ]    && NET_DNS1="8.8.4.4"
 
 NET_CONF="/storage/.config/network/eth0.network"
+mkdir -p "/storage/.config/network"
 > $NET_CONF
 echo "[Match]" >> $NET_CONF
 echo "Name=eth0" >> $NET_CONF
