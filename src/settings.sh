@@ -18,49 +18,39 @@
 
 oe_setup_addon tb.settings
 
+# sshd
 SSHD_CONF="/storage/.cache/services/sshd.conf"
-if [ "$SSHD_SECURE" = "true" ] ; then
-  ARGS="SSH_ARGS=\"-o 'PasswordAuthentication no'\""
-else
-  ARGS="SSH_ARGS=\"\""
-fi
-
+rm -f $SSHD_CONF
 if [ "$SSHD_ENABLED" = "true" ] ; then
-  echo $ARGS > $SSHD_CONF
-else
-  rm -f $SSHD_CONF
+  if [ "$SSHD_SECURE" = "true" ] ; then
+    echo "SSH_ARGS=\"-o 'PasswordAuthentication no'\"" > $SSHD_CONF
+  else
+    echo "SSH_ARGS=\"\"" > $SSHD_CONF
+  fi
 fi
 
 systemctl restart sshd.service
 
-# network defaults
-[ "$NET_ADDRESS" = "0.0.0.0" ] && NET_ADDRESS="192.168.0.100"
-[ -z "$NET_PREFIXLEN" ] && NET_PREFIXLEN="24"
-[ "$NET_PREFIXLEN" = "0" ] && NET_PREFIXLEN="24"
-[ "$NET_GATEWAY" = "0.0.0.0" ] && NET_GATEWAY="192.168.0.1"
-[ "$NET_DNS1" = "0.0.0.0" ]    && NET_DNS1="192.168.0.1"
-[ "$NET_DNS2" = "0.0.0.0" ]    && NET_DNS1="8.8.4.4"
+# wait for network
+WAIT_CONF="/storage/.cache/network_wait"
+rm -f $WAIT_CONF
+if [ "$WAIT_NETWORK" = "true" ] ; then
+  echo "WAIT_NETWORK_TIME=\"$WAIT_NETWORK_TIME\"" > $WAIT_CONF
+fi
 
+# network
 NET_CONF="/storage/.config/network/eth0.network"
-mkdir -p "/storage/.config/network"
-> $NET_CONF
-echo "[Match]" >> $NET_CONF
-echo "Name=eth0" >> $NET_CONF
-echo "" >> $NET_CONF
-echo "[Network]" >> $NET_CONF
+rm -f $NET_CONF
 if [ "$NET_METHOD" = "manual" ] ; then
-  echo "Address=$NET_ADDRESS/$NET_PREFIXLEN" >> $NET_CONF
-  echo "Gateway=$NET_GATEWAY" >> $NET_CONF
-  [ -n "$NET_DNS1" ] && echo "DNS=$NET_DNS1" >> $NET_CONF
-  [ -n "$NET_DNS2" ] && echo "DNS=$NET_DNS2" >> $NET_CONF
-else
-  echo "DHCP=ipv4" >> $NET_CONF
+  mkdir -p $(dirname $NET_CONF)
+  sed $(dirname $0)/resources/eth0.network \
+      -e "s|@NET_ADDRESS@|$NET_ADDRESS|" \
+      -e "s|@NET_PREFIXLEN@|$NET_PREFIXLEN|" \
+      -e "s|@NET_PREFIXLEN@|$NET_PREFIXLEN|" \
+      -e "s|@NET_GATEWAY@|$NET_GATEWAY|" \
+      -e "s|@NET_DNS1@|$NET_DNS1|" \
+      -e "s|@NET_DNS2@|$NET_DNS2|" \
+      > $NET_CONF
 fi
 
 systemctl restart systemd-networkd.service
-
-if [ "$WAIT_NETWORK" = "true" ] ; then
-  echo "WAIT_NETWORK_TIME=\"$WAIT_NETWORK_TIME\"" > /storage/.cache/network_wait
-else
-  rm -f /storage/.cache/network_wait
-fi
