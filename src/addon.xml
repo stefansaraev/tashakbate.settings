@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="@ADDONNAME@"
-       name="@DISTRONAME@ Configuration"
-       version="@ADDONVERSION@"
-       provider-name="@DISTRONAME@">
+       name="TB Configuration"
+       version="0.0.1"
+       provider-name="TB">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
     <extension point="xbmc.python.script" library="default.py" />
     <extension point="xbmc.service"       library="service.py" />
     <extension point="xbmc.addon.metadata">
-        <summary lang="en">@DISTRONAME@ Configuration</summary>
-        <description lang="en">Use this addon to manage your @DISTRONAME@ system. [CR][CR]From here you can change your network connectivity and enable/disable SSH</description>
+        <summary lang="en">TB Configuration</summary>
+        <description lang="en">Use this addon to manage your TB system. [CR][CR]From here you can change your network connectivity and enable/disable SSH</description>
         <platform>all</platform>
     </extension>
 </addon>
