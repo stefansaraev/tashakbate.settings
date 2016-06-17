@@ -18,8 +18,6 @@
     <string id="1001">Network</string>
     <string id="1011">Enable SSH daemon</string>
     <string id="1012">Disable password auth - [COLOR=red]Add your keys and re-enable ASAP![/COLOR]</string>
-    <string id="1013">Wait for network before starting Kodi</string>
-    <string id="1014">- time (s)</string>
     <string id="1021">Method (ipv4)</string>
     <string id="1022">IP Address</string>
     <string id="1023">Prefix Length</string>

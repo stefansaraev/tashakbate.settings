@@ -31,13 +31,6 @@ fi
 
 systemctl restart sshd.service
 
-# wait for network
-WAIT_CONF="/storage/.cache/network_wait"
-rm -f $WAIT_CONF
-if [ "$WAIT_NETWORK" = "true" ] ; then
-  echo "WAIT_NETWORK_TIME=\"$WAIT_NETWORK_TIME\"" > $WAIT_CONF
-fi
-
 # network
 NET_CONF="/storage/.config/network/eth0.network"
 rm -f $NET_CONF
