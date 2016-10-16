@@ -19,7 +19,7 @@
 oe_setup_addon tb.settings
 
 # sshd
-SSHD_CONF="/storage/.cache/services/sshd.conf"
+SSHD_CONF="/storage/.cache/service.sshd.conf"
 rm -f $SSHD_CONF
 if [ "$SSHD_ENABLED" = "true" ] ; then
   if [ "$SSHD_SECURE" = "true" ] ; then
