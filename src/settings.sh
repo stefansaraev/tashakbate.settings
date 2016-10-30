@@ -16,34 +16,32 @@
 
 . /etc/profile
 
-oe_setup_addon tb.settings
-
-# sshd
-SSHD_CONF="/storage/.cache/service.sshd.conf"
-rm -f $SSHD_CONF
-if [ "$SSHD_ENABLED" = "true" ] ; then
-  if [ "$SSHD_SECURE" = "true" ] ; then
-    echo "SSH_ARGS=\"-o 'PasswordAuthentication no'\"" > $SSHD_CONF
-  else
-    echo "SSH_ARGS=\"\"" > $SSHD_CONF
+if [ -n "$SSHD_ENABLED" ] ; then
+  SSHD_CONF="/storage/.cache/service.sshd.conf"
+  rm -f $SSHD_CONF
+  if [ "$SSHD_ENABLED" = "true" ] ; then
+    if [ "$SSHD_SECURE" = "true" ] ; then
+      echo "SSH_ARGS=\"-o 'PasswordAuthentication no'\"" > $SSHD_CONF
+    else
+      echo "SSH_ARGS=\"\"" > $SSHD_CONF
+    fi
   fi
+  systemctl restart sshd.service
 fi
 
-systemctl restart sshd.service
-
-# network
-NET_CONF="/storage/.config/network/eth0.network"
-rm -f $NET_CONF
-if [ "$NET_METHOD" = "manual" ] ; then
-  mkdir -p $(dirname $NET_CONF)
-  sed $(dirname $0)/resources/eth0.network \
-      -e "s|@NET_ADDRESS@|$NET_ADDRESS|" \
-      -e "s|@NET_PREFIXLEN@|$NET_PREFIXLEN|" \
-      -e "s|@NET_PREFIXLEN@|$NET_PREFIXLEN|" \
-      -e "s|@NET_GATEWAY@|$NET_GATEWAY|" \
-      -e "s|@NET_DNS1@|$NET_DNS1|" \
-      -e "s|@NET_DNS2@|$NET_DNS2|" \
-      > $NET_CONF
+if [ -n "$NET_METHOD" ] ; then
+  NET_CONF="/storage/.config/network/eth0.network"
+  rm -f $NET_CONF
+  if [ "$NET_METHOD" = "manual" ] ; then
+    mkdir -p $(dirname $NET_CONF)
+    sed $(dirname $0)/resources/eth0.network \
+        -e "s|@NET_ADDRESS@|$NET_ADDRESS|" \
+        -e "s|@NET_PREFIXLEN@|$NET_PREFIXLEN|" \
+        -e "s|@NET_PREFIXLEN@|$NET_PREFIXLEN|" \
+        -e "s|@NET_GATEWAY@|$NET_GATEWAY|" \
+        -e "s|@NET_DNS1@|$NET_DNS1|" \
+        -e "s|@NET_DNS2@|$NET_DNS2|" \
+        > $NET_CONF
+  fi
+  systemctl restart systemd-networkd.service
 fi
-
-systemctl restart systemd-networkd.service

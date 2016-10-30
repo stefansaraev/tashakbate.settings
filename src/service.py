@@ -13,6 +13,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
+import os
 import xbmc
 import xbmcaddon
 import xbmcgui
@@ -22,8 +23,19 @@ __scriptid__ = '@ADDONNAME@'
 __addon__ = xbmcaddon.Addon(id=__scriptid__)
 __cwd__ = __addon__.getAddonInfo('path')
 
+def export_settings():
+    os.environ['SSHD_ENABLED']  = __addon__.getSetting('SSHD_ENABLED')
+    os.environ['SSHD_SECURE']   = __addon__.getSetting('SSHD_SECURE')
+    os.environ['NET_METHOD']    = __addon__.getSetting('NET_METHOD')
+    os.environ['NET_ADDRESS']   = __addon__.getSetting('NET_ADDRESS')
+    os.environ['NET_PREFIXLEN'] = __addon__.getSetting('NET_PREFIXLEN')
+    os.environ['NET_GATEWAY']   = __addon__.getSetting('NET_GATEWAY')
+    os.environ['NET_DNS1']      = __addon__.getSetting('NET_DNS1')
+    os.environ['NET_DNS2']      = __addon__.getSetting('NET_DNS2')
+
 def execute(command_line):
     try:
+        export_settings()
         process = subprocess.Popen(command_line, shell=True, close_fds=True)
         process.wait()
     except Exception, e:
