@@ -1,8 +1,0 @@
-[Match]
-Name=eth0
-
-[Network]
-Address=@NET_ADDRESS@/@NET_PREFIXLEN@
-Gateway=@NET_GATEWAY@
-DNS=@NET_DNS1@
-DNS=@NET_DNS2@

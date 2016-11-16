@@ -28,7 +28,7 @@ def export_settings():
     os.environ['SSHD_SECURE']   = __addon__.getSetting('SSHD_SECURE')
     os.environ['NET_METHOD']    = __addon__.getSetting('NET_METHOD')
     os.environ['NET_ADDRESS']   = __addon__.getSetting('NET_ADDRESS')
-    os.environ['NET_PREFIXLEN'] = __addon__.getSetting('NET_PREFIXLEN')
+    os.environ['NET_NETMASK']   = __addon__.getSetting('NET_NETMASK')
     os.environ['NET_GATEWAY']   = __addon__.getSetting('NET_GATEWAY')
     os.environ['NET_DNS1']      = __addon__.getSetting('NET_DNS1')
     os.environ['NET_DNS2']      = __addon__.getSetting('NET_DNS2')

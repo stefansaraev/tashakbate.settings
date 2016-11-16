@@ -29,19 +29,16 @@ if [ -n "$SSHD_ENABLED" ] ; then
   systemctl restart sshd.service
 fi
 
-if [ -n "$NET_METHOD" ] ; then
-  NET_CONF="/storage/.config/network/eth0.network"
-  rm -f $NET_CONF
-  if [ "$NET_METHOD" = "manual" ] ; then
-    mkdir -p $(dirname $NET_CONF)
-    sed $(dirname $0)/resources/eth0.network \
-        -e "s|@NET_ADDRESS@|$NET_ADDRESS|" \
-        -e "s|@NET_PREFIXLEN@|$NET_PREFIXLEN|" \
-        -e "s|@NET_PREFIXLEN@|$NET_PREFIXLEN|" \
-        -e "s|@NET_GATEWAY@|$NET_GATEWAY|" \
-        -e "s|@NET_DNS1@|$NET_DNS1|" \
-        -e "s|@NET_DNS2@|$NET_DNS2|" \
-        > $NET_CONF
-  fi
-  systemctl restart systemd-networkd.service
+if [ "$NET_METHOD" = "manual" ] ; then
+  echo -n > /storage/.cache/net.static
+  echo "NET_ADDRESS=$NET_ADDRESS" >> /storage/.cache/net.static
+  echo "NET_NETMASK=$NET_NETMASK" >> /storage/.cache/net.static
+  echo "NET_GATEWAY=$NET_GATEWAY" >> /storage/.cache/net.static
+  echo "NET_DNS1=$NET_DNS1" >> /storage/.cache/net.static
+  echo "NET_DNS2=$NET_DNS2" >> /storage/.cache/net.static
+  systemctl stop udhcpc.service
+  systemctl restart net-static.service
+else
+  rm -f /storage/.cache/net.static
+  systemctl restart udhcpc.service
 fi
