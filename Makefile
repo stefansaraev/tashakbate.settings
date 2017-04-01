@@ -26,11 +26,16 @@ install: $(BUILDDIR)/$(ADDON_NAME)
 	mkdir -p $(DESTDIR)/$(ADDONDIR)
 	cp -R $(BUILDDIR)/$(ADDON_NAME) $(DESTDIR)/$(ADDONDIR)
 
+	mkdir -p $(DESTDIR)/usr/bin
+	cp settings-mon $(DESTDIR)/usr/bin
+
 $(BUILDDIR)/$(ADDON_NAME):
+	$(CC) -DWORK_DIR=\"/storage/.kodi/userdata/addon_data/$(ADDON_NAME)\" \
+	      -DRESTART_SCRIPT=\"$(ADDONDIR)/$(ADDON_NAME)/restart.sh\" \
+              settings-mon.c -o settings-mon
+
 	mkdir -p $(BUILDDIR)/$(ADDON_NAME)
 	cp -R src/* $(BUILDDIR)/$(ADDON_NAME)
 
 	sed -e "s,@ADDONNAME@,$(ADDON_NAME),g" \
 	    -i $(BUILDDIR)/$(ADDON_NAME)/addon.xml
-	sed -e "s,@ADDONNAME@,$(ADDON_NAME),g" \
-	    -i $(BUILDDIR)/$(ADDON_NAME)/service.py
