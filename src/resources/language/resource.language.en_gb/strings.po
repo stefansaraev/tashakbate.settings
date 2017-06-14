@@ -1,0 +1,59 @@
+# Kodi Media Center language file
+# Addon Name: TB Settings
+# Addon id: tb.settings
+# Addon Provider: TB
+msgid ""
+msgstr ""
+"Project-Id-Version: Kodi Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@kodi.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#32001"
+msgid "System"
+msgstr ""
+
+msgctxt "#32002"
+msgid "Network"
+msgstr ""
+
+#empty strings from id 32003 to 32100
+
+msgctxt "#32101"
+msgid "Enable SSH daemon"
+msgstr ""
+
+msgctxt "#32102"
+msgid "Disable password auth - [COLOR=red]Add your keys and re-enable ASAP![/COLOR]"
+msgstr ""
+
+#empty strings from id 32103 to 32200
+
+msgctxt "#32201"
+msgid "Method (ipv4)"
+msgstr ""
+
+msgctxt "#32202"
+msgid "IP Address"
+msgstr ""
+
+msgctxt "#32203"
+msgid "Netmask"
+msgstr ""
+
+msgctxt "#32204"
+msgid "Gateway"
+msgstr ""
+
+msgctxt "#32205"
+msgid "DNS 1"
+msgstr ""
+
+msgctxt "#32206"
+msgid "DNS 2"
+msgstr ""
